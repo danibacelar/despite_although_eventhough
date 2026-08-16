@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Although vs. Though vs. Even Though vs. Despite — Contrast Connectors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F1E6;
+    --paper-dim:#ECE6D6;
+    --ink:#1C2430;
+    --ink-soft:#4A5266;
+    --clause:#2F5D8A;
+    --clause-bg:#E4EDF5;
+    --noun:#A9761E;
+    --noun-bg:#F3E9D4;
+    --correct:#3F7D58;
+    --correct-bg:#E4F0E8;
+    --wrong:#B4432F;
+    --wrong-bg:#F6E4DF;
+    --line:#D8D0BB;
+    --white:#FFFFFF;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+    font-size:17px;
+  }
+
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px 100px;}
+  .pt{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-top:4px;
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    background:var(--ink);
+    color:var(--paper);
+    padding:64px 24px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  header.hero .wrap{max-width:820px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#C9BFA0;
+    margin-bottom:18px;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(30px, 5vw, 46px);
+    line-height:1.1;
+    margin:0 0 18px;
+    letter-spacing:-0.01em;
+  }
+  h1 .accent-clause{color:#8FB7DE;}
+  h1 .accent-noun{color:#E0BB74;}
+  .hero p{
+    color:#D9D2BC;
+    font-size:17px;
+    max-width:560px;
+    margin:0;
+  }
+  .scale-svg{position:absolute; right:-40px; top:20px; opacity:.16; width:260px; height:260px;}
+
+  .legend{display:flex; gap:14px; flex-wrap:wrap; margin-top:28px;}
+  .legend-item{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:#EDE7D4;
+  }
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot.clause{background:#8FB7DE;}
+  .dot.noun{background:#E0BB74;}
+
+  /* ---------- BIG TRICK BANNER ---------- */
+  .trick-banner{
+    background:var(--white);
+    border:2px solid var(--ink);
+    border-radius:12px;
+    padding:26px 28px;
+    margin:32px 0 8px;
+  }
+  .trick-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .trick-rule{
+    font-family:'Fraunces', serif;
+    font-size:19px;
+    font-weight:600;
+    line-height:1.5;
+  }
+  .trick-rule .clause-word{color:var(--clause);}
+  .trick-rule .noun-word{color:var(--noun);}
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{padding:56px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(24px,3.4vw,32px);
+    margin:0 0 8px;
+  }
+  .section-intro{color:var(--ink-soft); margin:0 0 32px; max-width:620px;}
+
+  /* ---------- RULES ---------- */
+  .family-block{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:26px 26px 22px;
+    margin-bottom:20px;
+  }
+  .family-block.clause{border-left:5px solid var(--clause);}
+  .family-block.noun{border-left:5px solid var(--noun);}
+  .family-title{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:21px;
+    margin-bottom:6px;
+  }
+  .tag{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:3px 9px;
+    border-radius:100px;
+  }
+  .tag.clause{background:var(--clause-bg); color:var(--clause);}
+  .tag.noun{background:var(--noun-bg); color:var(--noun);}
+  .family-block .followed-by{
+    color:var(--ink-soft);
+    font-size:15px;
+    margin-bottom:14px;
+  }
+  .family-block .followed-by code{
+    background:var(--paper-dim);
+    padding:1px 6px;
+    border-radius:4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px;
+  }
+  ul.rules-list{margin:0; padding-left:20px;}
+  ul.rules-list li{margin-bottom:10px; font-size:15.5px;}
+  ul.rules-list li b{color:var(--ink);}
+  .example{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    color:var(--ink-soft);
+    font-size:15.5px;
+    margin-top:4px;
+    background:var(--paper-dim);
+    padding:10px 14px;
+    border-radius:8px;
+  }
+
+  .warning{
+    background:var(--wrong-bg);
+    border:1px solid #E3B7A9;
+    border-radius:10px;
+    padding:16px 20px;
+    font-size:15px;
+    margin-top:8px;
+  }
+  .warning b{color:var(--wrong);}
+
+  /* ---------- QUIZ ---------- */
+  .q-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:16px;
+  }
+  .q-num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .q-text{font-size:17px; margin-bottom:6px;}
+  .q-text .blank{
+    display:inline-block;
+    min-width:90px;
+    border-bottom:2px dotted var(--ink-soft);
+  }
+  .q-pt{font-size:14px; color:var(--ink-soft); font-style:italic; margin-bottom:14px;}
+  .options{display:flex; flex-direction:column; gap:8px;}
+  .option{
+    display:flex; align-items:center; gap:10px;
+    padding:12px 14px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15.5px;
+    transition:border-color .15s, background .15s;
+  }
+  .option:hover{border-color:var(--ink-soft);}
+  .option input{accent-color:var(--ink); width:16px; height:16px;}
+  .option.correct-flag{background:var(--correct-bg); border-color:var(--correct);}
+  .option.wrong-flag{background:var(--wrong-bg); border-color:var(--wrong);}
+  .options.locked .option{cursor:default;}
+  .options.locked .option:not(.correct-flag):not(.wrong-flag){opacity:.55;}
+  .options.locked .option:hover{border-color:var(--line);}
+  .result-tag{
+    display:none;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:2px 8px;
+    border-radius:100px;
+    margin-left:auto;
+  }
+  .option.correct-flag .result-tag.tag-correct{display:inline-block; background:var(--correct); color:#fff;}
+  .option.wrong-flag .result-tag.tag-wrong{display:inline-block; background:var(--wrong); color:#fff;}
+  .explain{
+    display:none;
+    margin-top:12px;
+    padding:12px 14px;
+    background:var(--paper-dim);
+    border-radius:8px;
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+  .explain.show{display:block;}
+
+  .quiz-actions{
+    display:flex; align-items:center; gap:16px;
+    margin-top:8px;
+  }
+  button.check-btn{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    background:var(--ink);
+    color:var(--paper);
+    border:none;
+    padding:13px 26px;
+    border-radius:100px;
+    cursor:pointer;
+  }
+  button.check-btn:hover{background:#333d4d;}
+  #score{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--ink-soft);}
+
+  /* ---------- CONVERSATION ---------- */
+  .convo-card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:22px 24px;
+    margin-bottom:14px;
+  }
+  .convo-top{display:flex; align-items:center; gap:12px; margin-bottom:6px;}
+  .convo-num{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:20px;
+    color:var(--ink-soft);
+    min-width:26px;
+  }
+  .convo-prompt{font-size:16px;}
+  .convo-pt{font-size:13.5px; color:var(--ink-soft); font-style:italic; margin:0 0 8px 38px;}
+  textarea{
+    width:100%;
+    margin-top:10px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:10px 12px;
+    font-family:'Inter', sans-serif;
+    font-size:14.5px;
+    min-height:56px;
+    resize:vertical;
+    background:var(--paper-dim);
+  }
+  .reveal-btn{
+    margin-top:10px;
+    background:none;
+    border:1px solid var(--line);
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    padding:7px 14px;
+    border-radius:100px;
+    cursor:pointer;
+  }
+  .reveal-btn:hover{border-color:var(--ink);}
+  .sample{
+    display:none;
+    margin-top:10px;
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:15px;
+    color:var(--ink-soft);
+    padding-left:12px;
+    border-left:2px solid var(--line);
+  }
+  .sample.show{display:block;}
+
+  footer{
+    text-align:center;
+    padding:36px 24px 10px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+
+  @media (max-width:600px){
+    header.hero{padding:48px 20px 44px;}
+    section{padding:44px 0;}
+    .scale-svg{display:none;}
+    body{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="scale-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <line x1="100" y1="20" x2="100" y2="150" stroke="#EDE7D4" stroke-width="3"/>
+    <line x1="40" y1="55" x2="160" y2="55" stroke="#EDE7D4" stroke-width="3"/>
+    <path d="M40 55 L25 95 A20 12 0 0 0 55 95 Z" fill="none" stroke="#8FB7DE" stroke-width="3"/>
+    <path d="M160 55 L145 95 A20 12 0 0 0 175 95 Z" fill="none" stroke="#E0BB74" stroke-width="3"/>
+    <circle cx="100" cy="20" r="6" fill="#EDE7D4"/>
+    <rect x="70" y="150" width="60" height="10" rx="3" fill="#EDE7D4"/>
+  </svg>
+  <div class="wrap">
+    <div class="eyebrow">Grammar Lab · Contrast Connectors</div>
+    <h1>Although, <span class="accent-clause">Though</span>, Even Though &amp; <span class="accent-noun">Despite</span></h1>
+    <p>Four words, one job: showing contrast. There's really just <b>one question</b> to ask yourself each time — this page shows you what it is.</p>
+    <div class="legend">
+      <span class="legend-item"><span class="dot clause"></span> group 1 — a full sentence comes after</span>
+      <span class="legend-item"><span class="dot noun"></span> group 2 — just a word comes after</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ RULES ============ -->
+  <section id="rules">
+    <div class="section-label">Part 1</div>
+    <h2>The One Question to Ask</h2>
+    <p class="section-intro">Don't think about meaning — all four words mean the same thing ("even so..."). Think about grammar: <b>what comes right after the word?</b></p>
+
+    <div class="trick-banner">
+      <div class="trick-title">The trick / O truque</div>
+      <div class="trick-rule">
+        Is there a <span class="clause-word">verb conjugated</span> right after? (is, was, rains, studied...)<br>
+        → use <span class="clause-word">Although / Even Though / Though</span>
+      </div>
+      <div class="trick-rule" style="margin-top:14px;">
+        Is there only a <span class="noun-word">word or an -ing</span> right after? (the rain, studying...)<br>
+        → use <span class="noun-word">Despite / In Spite Of</span>
+      </div>
+      <p class="pt">Se depois da palavra vem uma frase completa (com verbo conjugado) → although / even though / though. Se depois vem só uma palavra ou um verbo em -ing → despite / in spite of.</p>
+    </div>
+
+    <div class="family-block clause">
+      <div class="family-title">Although <span class="tag clause">group 1</span></div>
+      <div class="followed-by">Comes before a full sentence piece: <code>subject + verb</code></div>
+      <ul class="rules-list">
+        <li>The most neutral/normal option. Good for writing and speaking.</li>
+        <li>Goes at the <b>start</b> or in the <b>middle</b> of the sentence.</li>
+      </ul>
+      <div class="example">Although it was raining, we went for a walk.</div>
+      <p class="pt">Embora estivesse chovendo, nós saímos para caminhar. — a palavra que você já conhece em português ("embora") é exatamente isso.</p>
+    </div>
+
+    <div class="family-block clause">
+      <div class="family-title">Even Though <span class="tag clause">group 1</span></div>
+      <div class="followed-by">Comes before a full sentence piece: <code>subject + verb</code></div>
+      <ul class="rules-list">
+        <li>Same grammar as although — just a little <b>stronger</b>, for when the contrast is surprising.</li>
+        <li>Goes at the <b>start</b> or in the <b>middle</b> of the sentence.</li>
+      </ul>
+      <div class="example">Even though he studied all night, he still failed the exam.</div>
+      <p class="pt">Mesmo que / mesmo assim — use quando o contraste é mais forte ou mais surpreendente.</p>
+    </div>
+
+    <div class="family-block clause">
+      <div class="family-title">Though <span class="tag clause">group 1</span></div>
+      <div class="followed-by">Comes before a full sentence piece: <code>subject + verb</code></div>
+      <ul class="rules-list">
+        <li>Means exactly the same as although, but sounds more <b>casual</b> — great for conversation.</li>
+        <li>Special extra use: it can go <b>alone, at the end</b> of a sentence, like a comment you add after.</li>
+      </ul>
+      <div class="example">We went for a walk. It was raining, though.</div>
+      <p class="pt">"Though" no final da frase é muito comum na fala — funciona como um "mas, viu?" jogado no fim.</p>
+    </div>
+
+    <div class="family-block noun">
+      <div class="family-title">Despite / In Spite Of <span class="tag noun">group 2</span></div>
+      <div class="followed-by">Comes before just a <code>word</code> or an <code>-ing</code> word — never before a conjugated verb</div>
+      <ul class="rules-list">
+        <li>Same meaning as the group above — the difference is only grammar, not meaning.</li>
+        <li>"In spite of" and "despite" mean exactly the same thing.</li>
+      </ul>
+      <div class="example">Despite the rain, we went for a walk.<br>Despite studying all night, he failed the exam.</div>
+      <p class="pt">Repare: depois de "despite" nunca vem um verbo conjugado (was, is, studied) — só um substantivo ou um verbo com -ing.</p>
+    </div>
+
+    <div class="warning">
+      <b>Watch out:</b> "despite of" doesn't exist in English. Say only <b>despite</b> — or, if you want "of", say <b>in spite of</b>.
+      <p class="pt" style="margin:6px 0 0;">Erro comum: nunca use "despite of". É "despite" (sem "of") ou "in spite of".</p>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section id="quiz">
+    <div class="section-label">Part 2</div>
+    <h2>Choose the Best Word</h2>
+    <p class="section-intro">Ask yourself the trick question for each sentence: is there a conjugated verb right after the gap, or just a word? Click an answer to see immediately if it's right.</p>
+
+    <div id="quiz-container"></div>
+
+    <div class="quiz-actions">
+      <button class="check-btn" id="reset-btn">Reset quiz</button>
+      <span id="score">Score: 0 / 8</span>
+    </div>
+  </section>
+
+  <!-- ============ CONVERSATION ============ -->
+  <section id="conversation">
+    <div class="section-label">Part 3</div>
+    <h2>Speaking Practice</h2>
+    <p class="section-intro">Say your sentence out loud (or type it below) using the connector given. There's no wrong topic — just make the grammar fit. Tap "Show a sample" to compare.</p>
+
+    <div id="convo-container"></div>
+  </section>
+
+</div>
+
+<footer>made for one-on-one English practice · contrast connectors</footer>
+
+<script>
+const quizData = [
+  {
+    text: '<span class="blank">___</span> the rain, we went for a walk.',
+    pt: 'Depois do espaço vem "the rain" — só uma palavra, sem verbo conjugado.',
+    options: ["Despite", "Although", "Even though"],
+    correct: 0,
+    explain: 'Correct answer: Despite. After the gap comes "the rain" — just a word, no conjugated verb — so it needs the group 2 word.'
+  },
+  {
+    text: '<span class="blank">___</span> it was raining, we went for a walk.',
+    pt: 'Depois do espaço vem "it was raining" — uma frase completa, com verbo.',
+    options: ["Despite", "Although", "In spite of"],
+    correct: 1,
+    explain: 'Correct answer: Although. After the gap comes "it was raining" — a full sentence piece with a verb — so it needs a group 1 word.'
+  },
+  {
+    text: 'I like the city. It\'s very noisy, <span class="blank">___</span>',
+    pt: 'Essa frase termina com o conector sozinho — só "though" pode fazer isso.',
+    options: ["although", "though", "despite"],
+    correct: 1,
+    explain: 'Correct answer: though. Only "though" can stand alone at the end of a sentence, like an extra comment.'
+  },
+  {
+    text: '<span class="blank">___</span> having no experience, she got the job.',
+    pt: '"Having" é um verbo em -ing, não um verbo conjugado.',
+    options: ["Although", "Despite", "Even though"],
+    correct: 1,
+    explain: 'Correct answer: Despite. "Having no experience" uses -ing, not a conjugated verb, so it belongs to group 2.'
+  },
+  {
+    text: '<span class="blank">___</span> he apologized, she was still angry.',
+    pt: '"He apologized" é uma frase completa (sujeito + verbo).',
+    options: ["Despite", "Even though", "In spite of"],
+    correct: 1,
+    explain: 'Correct answer: Even though. "He apologized" is a full sentence piece, so we need a group 1 word — "even though" fits this surprising contrast well.'
+  },
+  {
+    text: 'Fix the mistake: "___ the noise, I fell asleep."',
+    pt: 'Lembre-se: essa palavra nunca vem com "of".',
+    options: ["Despite of", "Despite", "Although of"],
+    correct: 1,
+    explain: 'Correct answer: Despite. Remember — "despite" never takes "of." Just "despite the noise."'
+  },
+  {
+    text: '<span class="blank">___</span> losing the first set, she won the match.',
+    pt: '"Losing" termina em -ing.',
+    options: ["Although", "Despite", "Because"],
+    correct: 1,
+    explain: 'Correct answer: Despite. "Losing" is an -ing word, not a conjugated verb, so group 2 fits here.'
+  },
+  {
+    text: '<span class="blank">___</span> they had a map, they still got lost.',
+    pt: '"They had a map" é uma frase completa.',
+    options: ["Despite", "In spite of", "Although"],
+    correct: 2,
+    explain: 'Correct answer: Although. "They had a map" is a full sentence piece with a verb, so we need group 1.'
+  }
+];
+
+const quizContainer = document.getElementById('quiz-container');
+let answered = {};
+
+function renderQuiz() {
+  quizContainer.innerHTML = '';
+  answered = {};
+  quizData.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card';
+    card.innerHTML = `
+      <div class="q-num">Question ${i + 1} of ${quizData.length}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="q-pt">${q.pt}</div>
+      <div class="options" id="options-${i}">
+        ${q.options.map((opt, j) => `
+          <label class="option" data-q="${i}" data-opt="${j}">
+            <input type="radio" name="q${i}" value="${j}">
+            <span>${opt}</span>
+            <span class="result-tag tag-correct">correct</span>
+            <span class="result-tag tag-wrong">not this one</span>
+          </label>
+        `).join('')}
+      </div>
+      <div class="explain" id="explain-${i}">${q.explain}</div>
+    `;
+    quizContainer.appendChild(card);
+  });
+  updateScore();
+}
+
+function updateScore() {
+  const score = Object.values(answered).filter(v => v === true).length;
+  document.getElementById('score').textContent = `Score: ${score} / ${quizData.length}`;
+}
+
+quizContainer.addEventListener('change', (e) => {
+  if (e.target.type !== 'radio') return;
+  const qIndex = parseInt(e.target.name.replace('q', ''));
+  if (answered[qIndex] !== undefined) return;
+
+  const chosen = parseInt(e.target.value);
+  const q = quizData[qIndex];
+  const optionsEl = document.getElementById(`options-${qIndex}`);
+  const correctLabel = optionsEl.querySelector(`label[data-opt="${q.correct}"]`);
+  correctLabel.classList.add('correct-flag');
+
+  if (chosen !== q.correct) {
+    optionsEl.querySelector(`label[data-opt="${chosen}"]`).classList.add('wrong-flag');
+  }
+
+  optionsEl.classList.add('locked');
+  document.getElementById(`explain-${qIndex}`).classList.add('show');
+
+  answered[qIndex] = (chosen === q.correct);
+  updateScore();
+});
+
+document.getElementById('reset-btn').addEventListener('click', renderQuiz);
+renderQuiz();
+
+const convoData = [
+  {
+    prompt: 'Use <b>Despite</b> to talk about something you did even though the weather was bad.',
+    pt: 'Depois de "despite", use só uma palavra ou um -ing (ex: the rain / raining).',
+    sample: 'Despite the rain, I still went for a walk yesterday.'
+  },
+  {
+    prompt: 'Use <b>Although</b> to talk about a decision you made and one downside of it.',
+    pt: 'Depois de "although", use uma frase completa (sujeito + verbo).',
+    sample: 'Although it was expensive, I decided to buy the new phone.'
+  },
+  {
+    prompt: 'Use <b>Even though</b> to talk about a time you succeeded even when something was really hard.',
+    pt: 'Igual "although", mas para um contraste mais forte ou surpreendente.',
+    sample: 'Even though the exam was very difficult, I managed to pass.'
+  },
+  {
+    prompt: 'Use <b>Though</b> at the end of a sentence, the way people do in casual conversation.',
+    pt: 'Fale a primeira frase, depois adicione "though" sozinho no final da segunda.',
+    sample: 'The trip was great. It rained every day, though.'
+  },
+  {
+    prompt: 'Use <b>Despite + -ing</b> to talk about a challenge at work or in your studies.',
+    pt: 'Lembre-se de usar o verbo com -ing depois de "despite".',
+    sample: 'Despite working late every night, she finished the project on time.'
+  },
+  {
+    prompt: 'Use <b>In spite of</b> to talk about a situation in your family.',
+    pt: '"In spite of" funciona exatamente como "despite".',
+    sample: 'In spite of the distance, we talk on the phone every week.'
+  }
+];
+
+const convoContainer = document.getElementById('convo-container');
+convoData.forEach((c, i) => {
+  const card = document.createElement('div');
+  card.className = 'convo-card';
+  card.innerHTML = `
+    <div class="convo-top">
+      <div class="convo-num">${i + 1}</div>
+      <div class="convo-prompt">${c.prompt}</div>
+    </div>
+    <p class="convo-pt">${c.pt}</p>
+    <textarea placeholder="Write or practice your sentence here..."></textarea>
+    <button class="reveal-btn" data-idx="${i}">Show a sample</button>
+    <div class="sample" id="sample-${i}">${c.sample}</div>
+  `;
+  convoContainer.appendChild(card);
+});
+
+document.querySelectorAll('.reveal-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const idx = btn.getAttribute('data-idx');
+    document.getElementById(`sample-${idx}`).classList.toggle('show');
+  });
+});
+</script>
+
+</body>
+</html>
